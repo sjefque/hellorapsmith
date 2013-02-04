@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity
 {
@@ -28,9 +30,20 @@ public class MainActivity extends Activity
     /** Called when the user clicks the Send button */
     public void sendMessage(View view)
     {
-    	Intent intent = new Intent(this, DisplayMessageActivity.class);
-    	EditText editText = (EditText)findViewById(R.id.edit_message);
-    	intent.putExtra(EXTRA_MESSAGE, editText.getText().toString());
-    	startActivity(intent);
+    	CheckBox newActivity = (CheckBox)findViewById(R.id.check_newactivity);
+    	EditText messageEdit = (EditText)findViewById(R.id.edit_message);
+    	String message = messageEdit.getText().toString();
+    	
+    	if (newActivity.isChecked())
+    	{
+        	Intent intent = new Intent(this, DisplayMessageActivity.class);
+        	intent.putExtra(EXTRA_MESSAGE, message);
+        	startActivity(intent);
+    	}
+    	else
+    	{
+    		TextView messageView = (TextView)findViewById(R.id.text_message);
+    		messageView.setText(message);
+    	}
     }
 }
